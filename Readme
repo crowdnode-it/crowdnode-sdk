@@ -1,0 +1,44 @@
+# Crowdnode SDK
+
+The **Crowdnode SDK** is the central "Contract" and communication layer between our **Backend** and our **Frontend**. 
+
+Instead of the Frontend and Backend "guessing" what the data looks like, this SDK acts as the single source of truth. It ensures security, privacy, and full type safety across the entire project.
+
+---
+
+## 1. The Three Pillars of Data
+We organize our data into three specific layers to ensure that sensitive database information never accidentally "leaks" to the user's phone.
+
+| Layer | Type Name | Where it lives | Purpose |
+| :--- | :--- | :--- | :--- |
+| **Storage** | `[Name]Storage` | Backend | The raw "ugly" data. Includes private IDs, internal flags, and sensitive dates. |
+| **Logic** | `[Name]Logic` | Backend/SDK | The "Brain." This version includes calculated fields (e.g., `isFundingActive`) and business rules used by the services. |
+| **UI** | `[Name]UI` | Frontend/SDK | The "Pretty" version. Sanitized and safe. This is the only version the Expo app is allowed to see. |
+| **Input** | `[Name]Input` | Shared | The "Form." Defines exactly what a user is allowed to send to the API when creating or updating something. |
+
+---
+
+## 2. How It Works (The Data Flow)
+
+The SDK facilitates a strict 3-step communication process:
+
+1.  **Definition:** We define the `Storage`, `Logic`, and `UI` types inside this SDK.
+2.  **Conversion (Backend):** The NestJS backend fetches a Storage object from the database. Before sending it back, it uses a *Converter* function to transform it into a UI object, stripping away any private data.
+3.  **Consumption (Frontend):** The frontend uses the `CrowdnodeClient` provided by this SDK. It automatically receives the UI type, providing full autocomplete and preventing crashes.
+
+
+
+---
+
+## 3. Repository Structure
+
+```text
+src/
+├── resources/
+│   ├── startups/           # Everything related to Startup data
+│   │   ├── startup.types.ts        # Storage, Logic, UI, and Input interfaces
+│   │   └── startup.client.ts       # The SDK functions for the Frontend
+│   └── campaigns/          # Everything related to Fundraising campaigns
+├── transport/
+│   └── http-client.ts             # Base configuration (Axios/Auth headers)
+└── index.ts                # Main entry point for the package

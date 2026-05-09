@@ -1,0 +1,19 @@
+{
+  "name": "crowdnode-sdk",
+  "version": "1.0.0",
+  "description": "The **Crowdnode SDK** is the central \"Contract\" and communication layer between our **Backend** and our **Frontend**.",
+  "main": "index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/crowdnode-it/crowdnode-sdk.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/crowdnode-it/crowdnode-sdk/issues"
+  },
+  "homepage": "https://github.com/crowdnode-it/crowdnode-sdk#readme"
+}
