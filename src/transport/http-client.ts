@@ -11,7 +11,7 @@ export class HttpClient {
 
     // Automatically attach Auth Token if available (for Expo/Mobile)
     if (getToken) {
-      this.instance.interceptors.request.use((config: { headers: { Authorization: string; }; }) => {
+      this.instance.interceptors.request.use((config) => {
         const token = getToken();
         if (token) {
           config.headers.Authorization = `Bearer ${token}`;
